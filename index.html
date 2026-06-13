@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Talks - 1 Day Event</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .talk { border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        #search { width: 100%; padding: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Technical Talks Event Schedule</h1>
+    <input type="text" id="search" placeholder="Search by category...">
+    <div id="schedule"></div>
+
+    <script>
+        const talks = [
+            { time: "10:00 AM", title: "Introduction to AI", speakers: ["Alice"], category: ["AI", "Tech"], duration: "1 hour", description: "Basics of AI." },
+            { time: "11:10 AM", title: "Web Performance", speakers: ["Bob"], category: ["Web", "Dev"], duration: "1 hour", description: "Speeding up apps." },
+            { time: "12:20 PM", title: "Serverless Computing", speakers: ["Charlie", "Dana"], category: ["Cloud"], duration: "1 hour", description: "Going serverless." },
+            { time: "01:30 PM", title: "Lunch Break", speakers: [], category: [], duration: "1 hour", description: "Break" },
+            { time: "02:40 PM", title: "Security Best Practices", speakers: ["Eve"], category: ["Security"], duration: "1 hour", description: "Secure your code." },
+            { time: "03:50 PM", title: "Data Visualization", speakers: ["Frank"], category: ["Data", "UI"], duration: "1 hour", description: "Visualize data." },
+            { time: "05:00 PM", title: "Future of Tech", speakers: ["Grace"], category: ["Tech", "Future"], duration: "1 hour", description: "Tech trends." }
+        ];
+
+        const scheduleDiv = document.getElementById('schedule');
+        const searchInput = document.getElementById('search');
+
+        function renderSchedule(filter = '') {
+            scheduleDiv.innerHTML = '';
+            talks.forEach(talk => {
+                const matches = talk.category.some(cat => cat.toLowerCase().includes(filter.toLowerCase()));
+                if (filter === '' || matches || talk.title === "Lunch Break") {
+                    const div = document.createElement('div');
+                    div.className = 'talk';
+                    div.innerHTML = `<h3>${talk.time} - ${talk.title}</h3><p>Speakers: ${talk.speakers.join(', ')}</p><p>Category: ${talk.category.join(', ')}</p><p>${talk.description}</p>`;
+                    scheduleDiv.appendChild(div);
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => renderSchedule(e.target.value));
+        renderSchedule();
+    </script>
+</body>
+</html>
